@@ -1,11 +1,24 @@
 <script>
-export let data 
+	import { getCollection, getEntry } from 'astro:content';
+
 	let title = 'Blog',
 	excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
 	thumbnail = {
 		src: '',
 	},
 	date = '';
+
+// Get all entries from a collection.
+// Requires the name of the collection as an argument.
+// Example: retrieve `src/content/blog/**`
+const allBlogPosts = await getCollection('blog');
+
+// Get a single entry from a collection.
+// Requires the name of the collection and either
+// the entry `slug` (content collections) or `id` (data collections)
+// Example: retrieve `src/content/authors/grace-hopper.json`
+const graceHopperProfile = await getEntry('authors', 'grace-hopper');
+
 	const categories = [...new Set(data.blogs.map(({ category }) => category))];
 </script>
 
