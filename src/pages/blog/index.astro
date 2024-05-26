@@ -5,51 +5,66 @@ import { getCollection } from 'astro:content';
 let title = 'Blog'
 let desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
 let blogs = await getCollection('blog');
-blogs = blogs.map((blog) => {
-	return {data: blog.data, slug: blog.slug}
-})
 let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 ---
 
-<Layout title={title} desc={desc} interact={true}> 
+<Layout title={title} desc={desc}> 
 	<div class="max-w-prose mx-auto">
 		<h1 class="text-center text-2xl md:text-3xl xl:text-4xl font-bold mb-6">{title}</h1>
 		<p class="text-center md:text-lg xl:text-xl font-medium mb-6">{desc}</p>
 		<p class="text-center md:text-lg xl:text-xl mb-8">
 			<span>Tags </span>
+			<a class="font-semibold" href="/blog">All</a>
 			{tags.map((tag,index) => {
 				return (
-					<>{index == 0 ? '':<span>,</span>} <a class="font-semibold" href={`/blog/?tag=${tag}`}>{tag}</a></>
+					<>, <a class="font-semibold" href={`/blog/?tag=${tag}`}>{tag}</a></>
 				)
 			})}
 		</p>
 	</div>
-	<div x-data={`{ blogs: ${JSON.stringify(blogs)} }`}>
-		<template x-for="blog in blogs">
-	
-		<div class="sm:flex items-center gap-2 mb-4" >
-			<div class="flex-1">
-				<img
-					class="w-full object-cover h-56 sm:h-72 md:h-96"
-					:src="blog.data.thumbnail.src"
-					:alt="blog.data.thumbnail.alt"
-				/>
-			</div>
-			<div class="flex-1 sm:pl-2">
-				<h2 class="font-semibold text-lg md:text-xl xl:text-2xl mb-2" x-text="blog.data.title"></h2>
-				<blockquote class="pl-2 border-l-4 mb-2">
-					<b>Date</b> <span x-text="new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})"></span>  
-					<b>Category</b> <a href="/#" x-text="blog.data.tags"></a>
-				</blockquote>
-				<p class="mb-2 md:text-lg xl:text-xl" x-text="blog.data.excerpt"></p>
-				<div>
-					<a class="px-3 font-semibold text-lg" :href="`/blog/${blog.slug}`">
-						Read more
-					</a>
+	<div>
+		{blogs.map(blog => {
+			return (
+			<div class="sm:flex items-center gap-2 mb-4" data-tag={blog.data.tags[0]}>
+				<div class="flex-1">
+					<img
+						class="w-full object-cover h-56 sm:h-72 md:h-96"
+						src={blog.data.thumbnail.src}
+						alt={blog.data.thumbnail.alt}
+					/>
+				</div>
+				<div class="flex-1 sm:pl-2">
+					<h2 class="font-semibold text-lg md:text-xl xl:text-2xl mb-2" >{blog.data.title}</h2>
+					<blockquote class="pl-2 border-l-4 mb-2">
+						<b>Date</b> <span >{new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})}</span>  
+						<b>Category</b> <a href="/#" >{blog.data.tags}</a>
+					</blockquote>
+					<p class="mb-2 md:text-lg xl:text-xl" >{blog.data.excerpt}</p>
+					<div>
+						<a class="px-3 font-semibold text-lg" href={`/blog/${blog.slug}`}>
+							Read more
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-	
-</template>
+		)
+		})}
 	</div>
 </Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		let searchParams = new URLSearchParams(location.search)
+		let blogElems = document.querySelectorAll('[data-tag]')
+		let tag = searchParams.get('tag')
+		if (tag) {
+			blogElems.forEach((elem) => {
+				if (tag == elem.dataset.tag) {
+					elem.classList.remove('hidden')
+				} else {
+					elem.classList.add('hidden')
+				}
+			})
+		}
+	})
+</script>

@@ -1,7 +1,7 @@
 ---
 let headline = 'Train Travel'
 let pathname=Astro.url.pathname
-let {title,desc,interact}= Astro.props
+let {title,desc}= Astro.props
 ---
 
 <html lang="en">
@@ -13,9 +13,15 @@ let {title,desc,interact}= Astro.props
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-    {interact ? <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script> : ''}
     <meta name="description" content={desc?desc:''}>
 		<title>{title ? title :headline}</title>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+
+        // document.documentElement.classList.add('dark')
+        // document.documentElement.classList.remove('dark')
+      })
+    </script>
 	</head>
 	<body class="" style="font-family: 'Petrona', serif;">
     <!-- prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert !max-w-none   bg-white dark:bg-gray-900 -->
@@ -23,7 +29,7 @@ let {title,desc,interact}= Astro.props
     <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mb-8 pt-6">
       <div class="flex flex-wrap items-center gap-4">
         {pathname =='/' ? '' : <h2 class="font-bold text-xl">{headline}</h2> }
-        <button onclick="">
+        <button id="dark">
           <!-- Moon icon -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden dark:inline" viewBox="0 0 20 20" fill="currentColor">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
