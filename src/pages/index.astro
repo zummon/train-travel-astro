@@ -1,35 +1,38 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro'
-	let title = 'Train Travel',
-	excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-	thumbnail = {
-		src: ''
-	},
-	date = ''
+let title = 'Train Travel'
+let excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+let thumbnail = {
+	src: ''
+}
+let date = ''
+const blogs = await getCollection('blog');
 ---
 
 <Layout>
-	<h1 class="text-center">{title}</h1>
-	<p class="text-center">{excerpt}</p>
+	<h1 class="text-center text-2xl md:text-3xl xl:text-4xl font-bold">{title}</h1>
+	<p class="text-center ">{excerpt}</p>
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-		{#each data.blogs as { category, date, excerpt, thumbnail, title, slug }, index (index)}
+		{blogs.map((blog, index) =>{
+			return (
 			<div>
 				<img
 					class="w-full object-cover h-48 md:h-56 lg:h-72"
-					src={thumbnail.src}
-					alt={thumbnail.alt}
+					src={blog.data.thumbnail.src}
+					alt={blog.data.thumbnail.alt}
 				/>
-				<h2>{title}</h2>
+				<h2>{blog.data.title}</h2>
 				<blockquote>
-					<b>Date</b> {date} <b>Category</b> <a href="/#">{category}</a>
+					<b>Date</b> {blog.data.date} <b>Category</b> <a href="/#">{blog.data.tags}</a>
 				</blockquote>
-				<p>{excerpt}</p>
+				<p>{blog.data.excerpt}</p>
 				<p>
-					<a href={`/blog/${slug}`}>
+					<a href={`/blog/${blog.slug}`}>
 						Read more
 					</a>
 				</p>
-			</div>
-		{/each}
+			</div>)
+		})}
 	</div>
 </Layout>

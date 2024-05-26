@@ -1,57 +1,51 @@
-<script>
-	import { getCollection, getEntry } from 'astro:content';
+---
+import Layout from '../../layouts/Layout.astro'
+import { getCollection } from 'astro:content';
 
-	let title = 'Blog',
-	excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-	thumbnail = {
-		src: '',
-	},
-	date = '';
+let title = 'Blog'
+let excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+let thumbnail = {
+	src: '',
+}
+let date = '';
 
-// Get all entries from a collection.
-// Requires the name of the collection as an argument.
-// Example: retrieve `src/content/blog/**`
-const allBlogPosts = await getCollection('blog');
+const blogs = await getCollection('blog');
 
-// Get a single entry from a collection.
-// Requires the name of the collection and either
-// the entry `slug` (content collections) or `id` (data collections)
-// Example: retrieve `src/content/authors/grace-hopper.json`
-const graceHopperProfile = await getEntry('authors', 'grace-hopper');
+// const categories = [...new Set(data.blogs.map(({ category }) => category))];
+---
 
-	const categories = [...new Set(data.blogs.map(({ category }) => category))];
-</script>
-
+<Layout>
 <h1 class="text-center">{title}</h1>
 <p class="text-center">
 	<b>Categories </b>
-	{#each categories as category, index (`cate-${index}`)}
+	<!-- {#each categories as category, index (`cate-${index}`)}
 		<a href="/#">{category}</a>
 		{#if index !== categories.length - 1}
 			<span>, </span> 
 		{/if}
-	{/each}
+	{/each} -->
 </p>
-{#each data.blogs as { category, date, excerpt, thumbnail, title, slug }, index (index)}
+{blogs.map( (blog, index) => (
 	<div class="sm:flex items-center" >
 		<div class="flex-1">
 			<img
 				class="w-full object-cover h-56 sm:h-72 md:h-96"
-				src={thumbnail.src}
-				alt={thumbnail.alt}
+				src={blog.data.thumbnail.src}
+				alt={blog.data.thumbnail.alt}
 			/>
 		</div>
 		<div class="flex-1 sm:pl-4">
-			<h2>{title}</h2>
+			<h2>{blog.data.title}</h2>
 			<blockquote>
-				<b>Date</b> {date} <b>Category</b> <a href="/#">{category}</a>
+				<b>Date</b> {blog.data.date} <b>Category</b> <a href="/#">{blog.data.tags}</a>
 			</blockquote>
-			<p>{excerpt}</p>
+			<p>{blog.data.excerpt}</p>
 			<p>
-				<a href={`/blog/${slug}`}>
+				<a href={`/blog/${blog.slug}`}>
 					Read more
 				</a>
 			</p>
 		</div>
 	</div>
-{/each}
+))}
+</Layout>

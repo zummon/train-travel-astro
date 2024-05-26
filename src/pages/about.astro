@@ -1,12 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+<Layout>
 <div class="max-w-prose mx-auto">
-	<h1 class="text-center">{data.title}</h1>
-	<p class="text-center">{data.excerpt}</p>
+	<h1 class="text-center"></h1>
+	<p class="text-center"></p>
 	<p>
 		<img
 			class="w-full object-cover object-top h-96"
-			src={data.thumbnail.src}
-			alt={data.thumbnail.alt}
+			src={''}
+			alt={''}
 		/>
 	</p>
-	<svelte:component this={data.content} />
+	
 </div>
+</Layout>
+
+<!-- 
+---
+category: 
+date: 2022-05-01
+excerpt: Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, mollitia laborum. Molestias.
+thumbnail:
+  src: https://images.pexels.com/photos/4555348/pexels-photo-4555348.jpeg?w=1280
+  alt: myself
+title: About
+---
+
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, amet placeat atque dolore eaque est quam maiores cupiditate recusandae provident itaque libero adipisci dolor. Iusto blanditiis ducimus doloribus perspiciatis tenetur! [Lorem, ipsum](#).
+
+- Lorem ipsum dolor sit. [Lorem](#).
+- Lorem ipsum dolor sit, amet consectetur adipisicing.
+
+#### Signature
+
+## _Lorem, ipsum._
+
+
+ -->
