@@ -1,40 +1,38 @@
 ---
 import Layout from '../layouts/Layout.astro'
+let title = 'About'
+let desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, mollitia laborum. Molestias.'
+let image = {
+	src: 'https://i.imgur.com/ULzhoPu.jpeg',
+	alt: 'myself'
+}
 ---
-<Layout>
-<div class="max-w-prose mx-auto">
-	<h1 class="text-center"></h1>
-	<p class="text-center"></p>
-	<p>
-		<img
-			class="w-full object-cover object-top h-96"
-			src={''}
-			alt={''}
-		/>
-	</p>
-	
-</div>
+<!-- Photo by ROMAN ODINTSOV: https://www.pexels.com/photo/optimistic-girl-leaning-out-from-wagon-exit-of-train-4555348/ -->
+<Layout title={title} desc={desc}>
+	<div class="max-w-prose mx-auto">
+		<h1 class="text-center text-2xl md:text-3xl xl:text-4xl font-bold mb-6">{title}</h1>
+		<p class="text-center md:text-lg xl:text-xl font-medium mb-8">{desc}</p>
+		<p>
+			<img
+				class="w-full object-cover object-top h-96"
+				src={image.src}
+				alt={image.alt}
+			/>
+		</p>
+		<p>
+			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, amet placeat atque dolore eaque est quam maiores cupiditate recusandae provident itaque libero adipisci dolor. Iusto blanditiis ducimus doloribus perspiciatis tenetur! [Lorem, ipsum](#).
+		</p>
+		<ul>
+			<li>
+				Lorem ipsum dolor sit. <a href="/#">Lorem</a>.
+			</li>
+			<li>
+				Lorem ipsum dolor sit, amet consectetur adipisicing.
+			</li>
+		</ul>
+		<h4> Signature</h4>
+		<h2 class="italic">
+			Lorem, ipsum.
+		</h2>
+	</div>
 </Layout>
-
-<!-- 
----
-category: 
-date: 2022-05-01
-excerpt: Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, mollitia laborum. Molestias.
-thumbnail:
-  src: https://images.pexels.com/photos/4555348/pexels-photo-4555348.jpeg?w=1280
-  alt: myself
-title: About
----
-
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, amet placeat atque dolore eaque est quam maiores cupiditate recusandae provident itaque libero adipisci dolor. Iusto blanditiis ducimus doloribus perspiciatis tenetur! [Lorem, ipsum](#).
-
-- Lorem ipsum dolor sit. [Lorem](#).
-- Lorem ipsum dolor sit, amet consectetur adipisicing.
-
-#### Signature
-
-## _Lorem, ipsum._
-
-
- -->

@@ -1,5 +1,7 @@
 ---
-
+let headline = 'Train Travel'
+let pathname=Astro.url.pathname
+let {title,desc,interact}= Astro.props
 ---
 
 <html lang="en">
@@ -7,15 +9,20 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-    <meta name="description" content="">
-		<title>Train Travel</title>
+    {interact ? <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script> : ''}
+    <meta name="description" content={desc?desc:''}>
+		<title>{title ? title :headline}</title>
 	</head>
-	<body class="font-serif">
-    <!-- prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert !max-w-none  px-4 bg-white dark:bg-gray-900 -->
-    <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mb-8">
-      <div class="flex flex-wrap space-x-4">
-        <h2>Train Travel</h2>
+	<body class="" style="font-family: 'Petrona', serif;">
+    <!-- prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert !max-w-none   bg-white dark:bg-gray-900 -->
+    <div class="px-4">
+    <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mb-8 pt-6">
+      <div class="flex flex-wrap items-center gap-4">
+        {pathname =='/' ? '' : <h2 class="font-bold text-xl">{headline}</h2> }
         <button onclick="">
           <!-- Moon icon -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden dark:inline" viewBox="0 0 20 20" fill="currentColor">
@@ -27,21 +34,25 @@
           </svg>
         </button>
       </div>
-      <nav class="ml-auto flex flex-wrap items-center divide-x divide-gray-200 dark:divide-gray-700">
-        <a href="/" class="px-4 ">Home</a>
-        <a href="/blog" class="px-4 ">Blog</a>
-        <a href="/about" class="px-4 ">About</a>
+      <nav class="ml-auto flex flex-wrap items-center font-semibold text-lg">
+        <a href="/" class="pr-4 ">Home</a>
+        <a href="/blog" class="px-4 border-x border-gray-200 dark:border-gray-700">Blog</a>
+        <a href="/about" class="pl-4 ">About</a>
       </nav>
     </div>
+    
 		<slot></slot>
-    <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mt-8">
+
+    <div class="max-w-screen-lg mx-auto flex flex-wrap items-center mt-8 pb-6">
       <div>
         <p>
           Made by zummon (Teerapat Anantarattanachai)
+        </p>
+        <p>
           Something breaks, needs upgrade. Let me know.
         </p>
       </div>
-      <div class="ml-auto flex flex-wrap space-x-4">
+      <div class="ml-auto flex flex-wrap gap-4">
         <!-- [Social icons](https://tailwindui.com/page-examples/landing-page-01) -->
         <a class="" href="https://www.facebook.com/zummonSpace/" target="_blank">
           <span class="sr-only">Facebook</span>
@@ -53,7 +64,7 @@
             ></path>
           </svg>
         </a>
-        <a href="/#" class="">
+        <a class="" href="https://www.instagram.com/" target="_blank">
           <span class="sr-only">Instagram</span>
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -63,13 +74,13 @@
             ></path>
           </svg>
         </a>
-        <a href="/#" class="">
+        <a class="" href="https://twitter.com/" target="_blank" >
           <span class="sr-only">Twitter</span>
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
             <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
           </svg>
         </a>
-        <a href="/#" class="">
+        <a class="" href="https://github.com/zummon/" target="_blank">
           <span class="sr-only">GitHub</span>
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -81,5 +92,6 @@
         </a>
       </div>
     </div>
+  </div>
 	</body>
 </html>
