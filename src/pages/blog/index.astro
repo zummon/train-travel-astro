@@ -15,9 +15,9 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 		<p class="text-center md:text-lg xl:text-xl mb-8">
 			<span>Tags </span>
 			<a class="font-semibold" href="/blog">All</a>
-			{tags.map((tag,index) => {
+			{tags.map((tag) => {
 				return (
-					<>, <a class="font-semibold" href={`/blog/?tag=${tag}`}>{tag}</a></>
+					<>, <a class="font-semibold" href={`/blog/?tags=${tag}`}>{tag}</a></>
 				)
 			})}
 		</p>
@@ -25,7 +25,7 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 	<div>
 		{blogs.map(blog => {
 			return (
-			<div class="sm:flex items-center gap-2 mb-4" data-tag={blog.data.tags[0]}>
+			<div class="sm:flex items-center gap-2 mb-4" data-tags={blog.data.tags.join(',')}>
 				<div class="flex-1">
 					<img
 						class="w-full object-cover h-56 sm:h-72 md:h-96"
@@ -35,7 +35,7 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 				</div>
 				<div class="flex-1 sm:pl-2">
 					<h2 class="font-semibold text-lg md:text-xl xl:text-2xl mb-2" >{blog.data.title}</h2>
-					<blockquote class="pl-2 border-l-4 mb-2">
+					<blockquote class="pl-2 border-l-4 border-gray-200 dark:border-gray-700 mb-2">
 						<b>Date</b> <span >{new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})}</span>  
 						<b>Category</b> <a href="/#" >{blog.data.tags}</a>
 					</blockquote>
@@ -55,16 +55,10 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		let searchParams = new URLSearchParams(location.search)
-		let blogElems = document.querySelectorAll('[data-tag]')
-		let tag = searchParams.get('tag')
-		if (tag) {
-			blogElems.forEach((elem) => {
-				if (tag == elem.dataset.tag) {
-					elem.classList.remove('hidden')
-				} else {
-					elem.classList.add('hidden')
-				}
-			})
-		}
+		let blogElems = document.querySelectorAll('[data-tags]')
+		let tags = searchParams.get('tags')
+		blogElems.forEach((elem) => {
+			elem.classList.toggle('!hidden',elem.dataset.tags.split(',').includes(tags))
+		})
 	})
 </script>
