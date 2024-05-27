@@ -37,7 +37,10 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 					<h2 class="font-semibold text-lg md:text-xl xl:text-2xl mb-2" >{blog.data.title}</h2>
 					<blockquote class="pl-2 border-l-4 border-gray-200 dark:border-gray-700 mb-2">
 						<b>Date</b> <span >{new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})}</span>  
-						<b>Category</b> <a href="/#" >{blog.data.tags}</a>
+						<b>Tag</b> 
+{blog.data.tags.map((tag) => {
+						return <a href={`/blog/?tags=${tag}`} >{tag}</a>
+						})}
 					</blockquote>
 					<p class="mb-2 md:text-lg xl:text-xl" >{blog.data.excerpt}</p>
 					<div>
@@ -57,8 +60,10 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 		let searchParams = new URLSearchParams(location.search)
 		let blogElems = document.querySelectorAll('[data-tags]')
 		let tags = searchParams.get('tags')
-		blogElems.forEach((elem) => {
-			elem.classList.toggle('!hidden',elem.dataset.tags.split(',').includes(tags))
-		})
+		if (tags) {
+			blogElems.forEach((elem) => {
+				elem.classList.toggle('!hidden',!elem.dataset.tags.split(',').includes(tags))
+			})
+		}
 	})
 </script>

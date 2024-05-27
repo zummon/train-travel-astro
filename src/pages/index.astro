@@ -26,7 +26,7 @@ let blogs = await getCollection('blog');
 				<h2 class="font-semibold text-lg md:text-xl xl:text-2xl mb-2">{blog.data.title}</h2>
 				<blockquote class="pl-2 border-l-4 border-gray-200 dark:border-gray-700 mb-2">
 					<b>Date</b> {new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})} 
-					<b>Category</b> <a href="/#">{blog.data.tags}</a>
+					<b>Tag</b> <a href="/#">{blog.data.tags}</a>
 				</blockquote>
 				<p class="mb-2 md:text-lg xl:text-xl">{blog.data.excerpt}</p>
 				<div class="">

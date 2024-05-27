@@ -18,7 +18,7 @@ const {Content} = await entry.render()
 ---
 <Layout>
 
-<div class="max-w-prose mx-auto">
+<div class="max-w-prose prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert mx-auto">
   <p>
     <img
       class="w-full object-cover h-96"
@@ -28,7 +28,8 @@ const {Content} = await entry.render()
   </p>
   <h1>{blog.data.title}</h1>
   <p>
-    <b>Date</b> {blog.data.date} <b>Category</b> <a href="/#">{blog.data.tags}</a>
+    <b>Date</b> {new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})} 
+    <b>Tag</b> {blog.data.tags.map((tag) => {return <a href={`/blog/?tags=${tag}`}>{tag}</a>})}
   </p>
   <p>{blog.data.excerpt}</p>
   <hr />
