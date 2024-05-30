@@ -1,39 +1,55 @@
 ---
-import Layout from '../../layouts/Layout.astro'
+import Layout from '../../layouts/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
-export async function getStaticPaths(){
-  const blogs = await getCollection('blog');
-  return blogs.map((blog) => {
-    return {
-      params: {
-        slug: blog.slug
-      },
-      props: {blog}
-    }
-  })
+export async function getStaticPaths() {
+	const blogs = await getCollection('blog');
+	return blogs.map((blog) => {
+		return {
+			params: {
+				slug: blog.slug,
+			},
+			props: { blog },
+		};
+	});
 }
-const {blog} = Astro.props
-const entry = await getEntry('blog', blog.slug)
-const {Content} = await entry.render()
+const { blog } = Astro.props;
+const entry = await getEntry('blog', blog.slug);
+const { Content } = await entry.render();
 ---
+
 <Layout>
+	<div
+		class="prose prose-sm mx-auto max-w-prose sm:prose lg:prose-lg xl:prose-xl dark:prose-invert"
+	>
+		<p>
+			<img
+				class="h-96 w-full object-cover"
+				src={blog.data.thumbnail.src}
+				alt={blog.data.thumbnail.alt}
+			/>
+		</p>
+		<h1>{blog.data.title}</h1>
+		<p>
+			<b>Date</b>
+			{
+				new Date(blog.data.date).toLocaleDateString(undefined, {
+					day: 'numeric',
+					month: 'short',
+					year: 'numeric',
+					hour: 'numeric',
+					minute: '2-digit',
+				})
+			}
+			<b>Tag</b>
+			{
+				blog.data.tags.map((tag) => {
+					return <a href={`/blog/?tags=${tag}`}>{tag}</a>;
+				})
+			}
+		</p>
+		<p>{blog.data.excerpt}</p>
+		<hr />
 
-<div class="max-w-prose prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert mx-auto">
-  <p>
-    <img
-      class="w-full object-cover h-96"
-      src={blog.data.thumbnail.src}
-      alt={blog.data.thumbnail.alt}
-    />
-  </p>
-  <h1>{blog.data.title}</h1>
-  <p>
-    <b>Date</b> {new Date(blog.data.date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric', hour:'numeric', minute:'2-digit'})} 
-    <b>Tag</b> {blog.data.tags.map((tag) => {return <a href={`/blog/?tags=${tag}`}>{tag}</a>})}
-  </p>
-  <p>{blog.data.excerpt}</p>
-  <hr />
-
-  <Content></Content>
-</div>
+		<Content />
+	</div>
 </Layout>
