@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-let title = 'Blog';
+let title = 'Blogs';
 let desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
 let blogs = await getCollection('blog');
 blogs.sort((a, b) => b.data.date - a.data.date);
@@ -10,21 +10,15 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 ---
 
 <Layout title={title} desc={desc}>
+	<h1 class="text-center">{title}</h1>
 	<div class="mx-auto max-w-prose">
-		<h1 class="mb-6 text-center text-2xl font-bold md:text-3xl xl:text-4xl">{title}</h1>
-		<p class="mb-6 text-center font-medium md:text-lg xl:text-xl">{desc}</p>
-		<p class="mb-8 text-center md:text-lg xl:text-xl">
+		<p class="text-center">{desc}</p>
+		<p class="text-center">
 			<span>Tags </span>
-			<a class="font-semibold" href="/blog">All</a>
-			{
+			<a class="" href="/blog">All</a>{
 				tags.map((tag) => {
 					return (
-						<>
-							,{' '}
-							<a class="font-semibold" href={`/blog/?tags=${tag}`}>
-								{tag}
-							</a>
-						</>
+						<span>, <a class="" href={`/blog?tags=${tag}`}>{tag}</a></span>
 					);
 				})
 			}
@@ -34,7 +28,7 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 		{
 			blogs.map((blog) => {
 				return (
-					<div class="mb-4 items-center gap-2 sm:flex" data-tags={blog.data.tags.join(',')}>
+					<div class="mb-4 items-center gap-4 sm:flex" data-tags={blog.data.tags.join(',')}>
 						<div class="flex-1">
 							<img
 								class="h-56 w-full object-cover sm:h-72 md:h-96"
@@ -42,11 +36,10 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 								alt={blog.data.thumbnail.alt}
 							/>
 						</div>
-						<div class="flex-1 sm:pl-2">
-							<h2 class="mb-2 text-lg font-semibold md:text-xl xl:text-2xl">{blog.data.title}</h2>
-							<blockquote class="mb-2 border-l-4 border-gray-200 pl-2 dark:border-gray-700">
-								<b>Date</b>{' '}
-								<span>
+						<div class="flex-1">
+							<h2 class="">{blog.data.title}</h2>
+							<blockquote class="">
+								<b>Date</b> <span>
 									{new Date(blog.data.date).toLocaleDateString(undefined, {
 										day: 'numeric',
 										month: 'short',
@@ -55,17 +48,17 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 										minute: '2-digit',
 									})}
 								</span>
-								<b>Tag</b>
+								<b>Tags</b>
 								{blog.data.tags.map((tag) => {
-									return <a href={`/blog/?tags=${tag}`}>{tag}</a>;
+									return <a href={`/blog?tags=${tag}`}>{tag}</a>;
 								})}
 							</blockquote>
-							<p class="mb-2 md:text-lg xl:text-xl">{blog.data.excerpt}</p>
-							<div>
-								<a class="px-3 text-lg font-semibold" href={`/blog/${blog.slug}`}>
+							<p class="">{blog.data.excerpt}</p>
+							<p>
+								<a class="" href={`/blog/${blog.slug}`}>
 									Read more
 								</a>
-							</div>
+							</p>
 						</div>
 					</div>
 				);
@@ -79,7 +72,9 @@ let tags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 			let tags = searchParams.get('tags');
 			if (tags) {
 				blogElems.forEach((elem) => {
-					elem.classList.toggle('!hidden', !elem.dataset.tags.split(',').includes(tags));
+					let bl = elem.dataset.tags.split(',').includes(tags)
+					elem.classList.toggle('hidden', !bl);
+					elem.classList.toggle('sm:flex', bl);
 				});
 			}
 		});

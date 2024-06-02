@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-let title = 'About';
+let title = 'About Me';
 let desc =
 	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, mollitia laborum. Molestias.';
 let image = {
@@ -11,24 +11,24 @@ let image = {
 
 <!-- Photo by ROMAN ODINTSOV: https://www.pexels.com/photo/optimistic-girl-leaning-out-from-wagon-exit-of-train-4555348/ -->
 <Layout title={title} desc={desc}>
+	<h1 class="text-center">{title}</h1>
 	<div class="mx-auto max-w-prose">
-		<h1 class="mb-6 text-center text-2xl font-bold md:text-3xl xl:text-4xl">{title}</h1>
-		<p class="mb-8 text-center font-medium md:text-lg xl:text-xl">{desc}</p>
+		<p class="text-center">{desc}</p>
 
-		<img class="mb-4 h-96 w-full object-cover object-top" src={image.src} alt={image.alt} />
+		<img class="h-96 w-full object-cover object-top" src={image.src} alt={image.alt} />
 
-		<p class="mb-4 font-medium md:text-lg xl:text-xl">
+		<p class="">
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, amet placeat atque dolore
 			eaque est quam maiores cupiditate recusandae provident itaque libero adipisci dolor. Iusto
-			blanditiis ducimus doloribus perspiciatis tenetur! <a href="/#">Lorem, ipsum</a>.
+			blanditiis ducimus doloribus perspiciatis tenetur! <a href="/blog/ipsum">Lorem, ipsum</a>.
 		</p>
-		<ul class="mb-4 list-inside list-decimal font-medium md:text-lg xl:text-xl">
+		<ul class="">
 			<li>
-				Lorem ipsum dolor sit. <a href="/#">Lorem</a>.
+				Lorem ipsum dolor sit. <a href="/">Lorem</a>.
 			</li>
 			<li>Lorem ipsum dolor sit, amet consectetur adipisicing.</li>
 		</ul>
-		<h4 class="mb-4 font-medium md:text-lg xl:text-xl">Signature</h4>
-		<h2 class="font-medium italic md:text-lg xl:text-xl">Lorem, ipsum.</h2>
+		<h4 class="text-right">Signature</h4>
+		<h2 class="text-right">Lorem, ipsum.</h2>
 	</div>
 </Layout>

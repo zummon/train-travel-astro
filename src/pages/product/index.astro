@@ -1,7 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
+import products from '../../products.json'
 ---
 <Layout>
-
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		{products.map((product) => {
+			return (
+				<div>
+					<img src={product.src} alt={product.alt} />
+				</div>
+			)
+		})}
+	</div>
 </Layout>

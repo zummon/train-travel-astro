@@ -19,7 +19,7 @@ const { Content } = await entry.render();
 
 <Layout>
 	<div
-		class="prose prose-sm mx-auto max-w-prose sm:prose lg:prose-lg xl:prose-xl dark:prose-invert"
+		class="mx-auto max-w-prose"
 	>
 		<p>
 			<img
@@ -40,10 +40,10 @@ const { Content } = await entry.render();
 					minute: '2-digit',
 				})
 			}
-			<b>Tag</b>
+			<b>Tags</b>
 			{
 				blog.data.tags.map((tag) => {
-					return <a href={`/blog/?tags=${tag}`}>{tag}</a>;
+					return <a href={`/blog?tags=${tag}`}>{tag}</a>;
 				})
 			}
 		</p>

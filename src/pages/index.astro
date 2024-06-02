@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import products from '../products.json'
 let title = 'Train Travel';
 let desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
 let image = {
@@ -12,51 +13,54 @@ blogs = blogs.slice(0, 4);
 ---
 
 <Layout title={title} desc={desc}>
+	<h1 class="text-center">{title}</h1>
 	<div class="mx-auto max-w-prose">
-		<h1 class="mb-6 text-center text-2xl font-bold md:text-3xl xl:text-4xl">{title}</h1>
-		<p class="mb-8 text-center font-medium md:text-lg xl:text-xl">{desc}</p>
+		<p class="text-center">{desc}</p>
 	</div>
-
-	<div class="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+	
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{
 			blogs.map((blog) => {
 				return (
 					<div class="lg:last:hidden">
 						<img
-							class="mb-2 h-48 w-full object-cover md:h-56 lg:h-72"
+							class="h-48 w-full object-cover md:h-56 lg:h-72"
 							src={blog.data.thumbnail.src}
 							alt={blog.data.thumbnail.alt}
 						/>
-						<h2 class="mb-2 text-lg font-semibold md:text-xl xl:text-2xl">{blog.data.title}</h2>
-						<blockquote class="mb-2 border-l-4 border-gray-200 pl-2 dark:border-gray-700">
-							<b>Date</b>{' '}
+						<h2 class="">{blog.data.title}</h2>
+						<blockquote class="">
+							<b>Date</b> <span>
 							{new Date(blog.data.date).toLocaleDateString(undefined, {
 								day: 'numeric',
 								month: 'short',
 								year: 'numeric',
 								hour: 'numeric',
 								minute: '2-digit',
+							})}</span>
+							<b>Tags</b> 
+							{blog.data.tags.map((tag) => {
+								return <a href={`/blog?tags=${tag}`}>{tag}</a>
 							})}
-							<b>Tag</b> <a href="/#">{blog.data.tags}</a>
 						</blockquote>
-						<p class="mb-2 md:text-lg xl:text-xl">{blog.data.excerpt}</p>
-						<div class="">
-							<a class="px-3 text-lg font-semibold" href={`/blog/${blog.slug}`}>
+						<p class="">{blog.data.excerpt}</p>
+						<p class="">
+							<a class="" href={`/blog/${blog.slug}`}>
 								Read more
 							</a>
-						</div>
+						</p>
 					</div>
 				);
 			})
 		}
 	</div>
 
-	<div class="container mx-auto mb-8 items-center gap-4 sm:flex">
+	<div class="container mx-auto items-center gap-4 sm:flex">
 		<div class="flex-1">
-			<h2 class="mb-2 text-center text-xl font-semibold sm:mb-6 md:text-2xl xl:text-3xl">
+			<h2 class="text-center">
 				About Me
 			</h2>
-			<p class="mb-4 text-center font-medium md:text-lg xl:text-xl">
+			<p class="text-center">
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores, in!
 			</p>
 		</div>
@@ -67,5 +71,15 @@ blogs = blogs.slice(0, 4);
 				alt="Your Photo"
 			/>
 		</div>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		{products.slice(0, 3).map((product) => {
+			return (
+				<div class="last:hidden lg:last:block">
+					<img src={product.src} alt={product.alt} />
+				</div>
+			)
+		})}
 	</div>
 </Layout>
