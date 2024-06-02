@@ -1,0 +1,27 @@
+---
+import products from '../../products.json'
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	return products.map((product) => {
+		return {
+			params: {
+				id: product.id,
+			},
+			props: { product },
+		};
+	});
+}
+
+const { product } = Astro.props;
+---
+
+<Layout>
+	<div class="mx-auto w-fit"> 
+		<img
+			class=""
+			src={product.src}
+			alt={product.alt}
+		/>
+	</div>
+</Layout>
