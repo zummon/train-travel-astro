@@ -73,14 +73,12 @@ blogs = blogs.slice(0, 4);
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+	<div class="columns-1 md:columns-2 lg:columns-3">
 		{products.slice(0, 3).map((product) => {
 			return (
-				<div class="last:hidden lg:last:block">
-					<a href={`/product/${product.id}`}>
-						<img src={product.src} alt={product.alt} />
-					</a>
-				</div>
+				<a class="last:hidden lg:last:block" href={`/product/${product.id}`}>
+					<img class="w-full" src={product.src} alt={product.alt} />
+				</a>
 			)
 		})}
 	</div>

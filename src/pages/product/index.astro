@@ -9,14 +9,12 @@ let desc = 'officiis delectus natus iste quas.';
 	<div class="mx-auto max-w-prose">
 		<p class="text-center">{desc}</p>
 	</div>
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+	<div class="columns-1 md:columns-2 lg:columns-3">
 		{products.map((product) => {
 			return (
-				<div>
-					<a href={`/product/${product.id}`}>
-						<img src={product.src} alt={product.alt} />
-					</a>
-				</div>
+				<a class="" href={`/product/${product.id}`}>
+					<img class="w-full" src={product.src} alt={product.alt} />
+				</a>
 			)
 		})}
 	</div>
